@@ -609,7 +609,8 @@ def train():
         def save_weights(net, prefix, i):
             path = os.path.join(
                 basedir, expname, '{}_{:06d}.npy'.format(prefix, i))
-            np.save(path, net.get_weights())
+            weights = np.asarray(net.get_weights(), dtype="object")
+            np.save(path, weights, allow_pickle=True)
             print('saved weights at', path)
 
         if i % args.i_weights == 0:
@@ -623,7 +624,7 @@ def train():
                 g_i = 0
                 for t in gradients:
                     g_i += 1
-                    tf2.summary.histogram(str(g_i), t)
+                    tf2.summary.histogram(str(g_i), t, step=args.i_print)
                 tf2.summary.scalar('misc/learning_rate', K.eval(optimizer.learning_rate(optimizer.iterations)))
                 loss_string = "Total loss = "
                 for l_key, l_value in loss.items():
