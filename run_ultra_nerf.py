@@ -1,5 +1,5 @@
 import os
-import tensorflow as tf
+import tensorflow as tf2
 
 # os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
@@ -87,10 +87,10 @@ def render_method_convolutional_ultrasound(raw, z_vals, args):
 
     # Bernoulli distribution can be approximated by RelaxedBernoulli
     # temperature = 0.01
-    # border_distribution = tf.contrib.distributions.RelaxedBernoulli(temperature, probs=prob_border)
+    # border_distribution = tf.distributions.RelaxedBernoulli(temperature, probs=prob_border)
     # Note: Estimating a border explicitly is not necessary. I recommend experimenting with solely relying on
     # reflection coefficient for the geometry estimation
-    border_distribution = tf.contrib.distributions.Bernoulli(probs=prob_border, dtype=tf.float32)
+    border_distribution = tf.distributions.Bernoulli(probs=prob_border, dtype=tf.float32)
     border_indicator = tf.stop_gradient(border_distribution.sample(seed=0))
     # Predict reflection coefficient. This value is between (0, 1).
     reflection_coeff = tf.math.sigmoid(raw[..., 1])
@@ -552,7 +552,7 @@ def train():
     print('TEST views are', i_test)
     print('VAL views are', i_val)
     # Summary writers
-    writer = tf.contrib.summary.create_file_writer(
+    writer = tf2.summary.create_file_writer(
         os.path.join(basedir, 'summaries', expname))
     writer.set_as_default()
 
@@ -619,19 +619,25 @@ def train():
         if i % args.i_print == 0 or i < 10:
             print(expname, i, total_loss.numpy(), global_step.numpy())
             print('iter time {:.05f}'.format(dt))
-            with tf.contrib.summary.record_summaries_every_n_global_steps(args.i_print):
+            with tf2.summary.record_if(i % args.i_print == 0):
                 g_i = 0
                 for t in gradients:
                     g_i += 1
-                    tf.contrib.summary.histogram(str(g_i), t)
-                tf.contrib.summary.scalar('misc/learning_rate', K.eval(optimizer.learning_rate(optimizer.iterations)))
+                    tf2.summary.histogram(str(g_i), t)
+                tf2.summary.scalar('misc/learning_rate', K.eval(optimizer.learning_rate(optimizer.iterations)))
                 loss_string = "Total loss = "
                 for l_key, l_value in loss.items():
+                    # TODO: deal with scalar
+                    value = l_value[1]
+                    if tf.rank(l_value[1]) != 0:
+                        value = l_value[1][0]
+                    if tf.rank(total_loss) != 0:
+                        total_loss = total_loss [0]
                     loss_string += f' + {l_value[0]} * {l_key}'
-                    tf.contrib.summary.scalar(f'train/loss_{l_key}/', l_value[1])
-                    tf.contrib.summary.scalar(f'train/penalty_factor_{l_key}/', l_value[0])
-                    tf.contrib.summary.scalar(f'train/total_loss_{l_key}/', l_value[0] * l_value[1])
-                tf.contrib.summary.scalar('train/total_loss/', total_loss)
+                    tf2.summary.scalar(f'train/loss_{l_key}/', value)
+                    tf2.summary.scalar(f'train/penalty_factor_{l_key}/', l_value[0])
+                    tf2.summary.scalar(f'train/total_loss_{l_key}/', l_value[0] * value)
+                tf2.summary.scalar('train/total_loss/', total_loss)
                 print(loss_string)
             if i % args.i_img == 0:
                 # Log a rendered validation view to Tensorboard
@@ -668,20 +674,20 @@ def train():
                 imageio.imwrite(os.path.join(testimgdir,
                                              '{:06d}.png'.format(i)), to8b(tf.transpose(output_image_test)))
 
-                with tf.contrib.summary.record_summaries_every_n_global_steps(args.i_img):
+                with tf2.summary.record_summaries_every_n_global_steps(args.i_img):
 
-                    tf.contrib.summary.image('b_mode/output/',
+                    tf2.summary.image('b_mode/output/',
                                              tf.expand_dims(tf.expand_dims(to8b(tf.transpose(output_image_test)), 0),
                                                             -1))
                     for l_key, l_value in loss_holdout.items():
-                        tf.contrib.summary.scalar(f'test/loss_{l_key}/', l_value[0])
-                        tf.contrib.summary.scalar(f'test/penalty_factor_{l_key}/', l_value[1])
-                        tf.contrib.summary.scalar(f'test/total_loss_{l_key}/', l_value[0] * l_value[1])
-                    tf.contrib.summary.scalar('test/total_loss/', total_loss)
-                    tf.contrib.summary.image('b_mode/target/',
+                        tf2.summary.scalar(f'test/loss_{l_key}/', l_value[0])
+                        tf2.summary.scalar(f'test/penalty_factor_{l_key}/', l_value[1])
+                        tf2.summary.scalar(f'test/total_loss_{l_key}/', l_value[0] * l_value[1])
+                    tf2.summary.scalar('test/total_loss/', total_loss)
+                    tf2.summary.image('b_mode/target/',
                                              tf.expand_dims(tf.expand_dims(to8b(tf.transpose(target)), 0), -1))
                     for map_k, map_v in rendering_output_test.items():
-                        tf.contrib.summary.image(f'maps/{map_k}/',
+                        tf2.summary.image(f'maps/{map_k}/',
                                                  tf.expand_dims(tf.image.decode_png(
                                                      show_colorbar(tf.transpose(map_v)).getvalue(), channels=4),
                                                      0))

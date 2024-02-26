@@ -1,11 +1,15 @@
-#jaxlib
-jax
-tensorflow_probability==0.8.0
+jax == 0.4.3
+jaxlib == 0.4.3
+tensorflow_probability == 0.14.0
 numpy >= 1.14.6
-imageio
 matplotlib
 configargparse
 scikit-learn
+imageio == 2.19.3
+imageio-ffmpeg
+# imagemagick
+tensorflow==2.8.0
+# tensorflow-gpu == 2.8.0
 # scikit-learn<=1.02
 # matplotlib<=3.5.2
 # imageio<=2.21.1
