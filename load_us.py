@@ -57,9 +57,9 @@ def _minify(basedir, factors=[], resolutions=[]):
         print('Done')
 
 
-def _load_data(basedir):
+def _load_data(basedir, pose_file):
     # poses are 4x4 [R T] matrices
-    poses = np.load(os.path.join(basedir, 'poses.npy'))
+    poses = np.load(os.path.join(basedir, pose_file))
 
     sfx = ''
 
@@ -206,8 +206,8 @@ def spherify_poses(poses, bds):
     return poses_reset, new_poses, bds
 
 
-def load_us_data(basedir):
-    poses, imgs = _load_data(basedir)
+def load_us_data(basedir, pose_file):
+    poses, imgs = _load_data(basedir, pose_file)
     print('Loaded', basedir)
     images = imgs
 

@@ -1,0 +1,615 @@
+2024-03-10 20:21:00.911386: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2024-03-10 20:21:00.911478: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2024-03-10 20:21:01.184298: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2024-03-10 20:21:01.494565: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-10 20:21:03.930901: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+WARNING:tensorflow:From /cluster/project/krause/yunkao/git/ultra-nerf/run_ultra_nerf.py:25: Normal.__init__ (from tensorflow.python.ops.distributions.normal) is deprecated and will be removed after 2019-01-01.
+Instructions for updating:
+The TensorFlow Distributions library has moved to TensorFlow Probability (https://github.com/tensorflow/probability). You should update all references to use `tfp.distributions` instead of `tf.distributions`.
+2024-03-10 20:21:15.426717: W tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:47] Overriding orig_value setting because the TF_FORCE_GPU_ALLOW_GROWTH environment variable is set. Original config value was 0.
+2024-03-10 20:21:15.427664: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1929] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9619 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:21:00.0, compute capability: 7.5
+WARNING:tensorflow:From /cluster/project/krause/yunkao/miniconda3/envs/ultra_nerf/lib/python3.9/site-packages/tensorflow/python/ops/distributions/normal.py:149: Distribution.__init__ (from tensorflow.python.ops.distributions.distribution) is deprecated and will be removed after 2019-01-01.
+Instructions for updating:
+The TensorFlow Distributions library has moved to TensorFlow Probability (https://github.com/tensorflow/probability). You should update all references to use `tfp.distributions` instead of `tf.distributions`.
+200
+200
+Loaded image data (200, 512, 256) (200, 4, 4)
+Loaded ./data/synthetic_testing/l2
+Data:
+(200, 4, 4) (200, 512, 256)
+HOLDOUT view is 106
+Test 1, train 199
+MODEL 63 0 <class 'int'> <class 'int'> False
+(None, 63) (None, 63) (None, 0)
+input (None, 63)
+0 layer, (None, 128) shape
+1 layer, (None, 128) shape
+2 layer, (None, 128) shape
+3 layer, (None, 128) shape
+4 layer, (None, 128) shape
+5 layer, (None, 128) shape
+6 layer, (None, 128) shape
+7 layer, (None, 128) shape
+Model: "model"
+__________________________________________________________________________________________________
+ Layer (type)                Output Shape                 Param #   Connected to                  
+==================================================================================================
+ input_1 (InputLayer)        [(None, 63)]                 0         []                            
+                                                                                                  
+ tf.split (TFOpLambda)       [(None, 63),                 0         ['input_1[0][0]']             
+                              (None, 0)]                                                          
+                                                                                                  
+ dense (Dense)               (None, 128)                  8192      ['tf.split[0][0]']            
+                                                                                                  
+ dense_1 (Dense)             (None, 128)                  16512     ['dense[0][0]']               
+                                                                                                  
+ dense_2 (Dense)             (None, 128)                  16512     ['dense_1[0][0]']             
+                                                                                                  
+ dense_3 (Dense)             (None, 128)                  16512     ['dense_2[0][0]']             
+                                                                                                  
+ dense_4 (Dense)             (None, 128)                  16512     ['dense_3[0][0]']             
+                                                                                                  
+ tf.concat (TFOpLambda)      (None, 191)                  0         ['tf.split[0][0]',            
+                                                                     'dense_4[0][0]']             
+                                                                                                  
+ dense_5 (Dense)             (None, 128)                  24576     ['tf.concat[0][0]']           
+                                                                                                  
+ dense_6 (Dense)             (None, 128)                  16512     ['dense_5[0][0]']             
+                                                                                                  
+ dense_7 (Dense)             (None, 128)                  16512     ['dense_6[0][0]']             
+                                                                                                  
+ dense_8 (Dense)             (None, 5)                    645       ['dense_7[0][0]']             
+                                                                                                  
+==================================================================================================
+Total params: 132485 (517.52 KB)
+Trainable params: 132485 (517.52 KB)
+Non-trainable params: 0 (0.00 Byte)
+__________________________________________________________________________________________________
+WARNING:tensorflow:From /cluster/project/krause/yunkao/git/ultra-nerf/run_ultra_nerf.py:93: Bernoulli.__init__ (from tensorflow.python.ops.distributions.bernoulli) is deprecated and will be removed after 2019-01-01.
+Instructions for updating:
+The TensorFlow Distributions library has moved to TensorFlow Probability (https://github.com/tensorflow/probability). You should update all references to use `tfp.distributions` instead of `tf.distributions`.
+2024-03-10 20:21:24.085369: I external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:454] Loaded cuDNN version 8904
+Found ckpts []
+Begin
+TRAIN views are [  0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17
+  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35
+  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53
+  54  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71
+  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89
+  90  91  92  93  94  95  96  97  98  99 100 101 102 103 104 105 107 108
+ 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126
+ 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144
+ 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162
+ 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180
+ 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198
+ 199]
+TEST views are [106]
+VAL views are [106]
+saved weights at ./logs/0310_101_noise/model_000000.npy
+saved weights at ./logs/0310_101_noise/optimizer_000000.npy
+0310_101_noise 0 [0.42200837] 0
+iter time 8.11464
+Total loss =  + 0.75 * ssim + 0.25 * l2
+0310_101_noise 1 [0.43041414] 1
+iter time 0.14874
+Total loss =  + 0.75 * ssim + 0.25 * l2
+0310_101_noise 2 [0.4302912] 2
+iter time 0.13710
+Total loss =  + 0.75 * ssim + 0.25 * l2
+0310_101_noise 3 [0.401528] 3
+iter time 0.14929
+Total loss =  + 0.75 * ssim + 0.25 * l2
+0310_101_noise 4 [0.4213513] 4
+iter time 0.13973
+Total loss =  + 0.75 * ssim + 0.25 * l2
+0310_101_noise 5 [0.4017783] 5
+iter time 0.13673
+Total loss =  + 0.75 * ssim + 0.25 * l2
+0310_101_noise 6 [0.4191684] 6
+iter time 0.14174
+Total loss =  + 0.75 * ssim + 0.25 * l2
+0310_101_noise 7 [0.38267073] 7
+iter time 0.14520
+Total loss =  + 0.75 * ssim + 0.25 * l2
+0310_101_noise 8 [0.39075968] 8
+iter time 0.14668
+Total loss =  + 0.75 * ssim + 0.25 * l2
+0310_101_noise 9 [0.41889727] 9
+iter time 0.14072
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_002000.npy
+saved weights at ./logs/0310_101_noise/optimizer_002000.npy
+0310_101_noise 2000 [0.06358888] 2000
+iter time 0.13878
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_004000.npy
+saved weights at ./logs/0310_101_noise/optimizer_004000.npy
+0310_101_noise 4000 [0.0661046] 4000
+iter time 0.15951
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_006000.npy
+saved weights at ./logs/0310_101_noise/optimizer_006000.npy
+0310_101_noise 6000 [0.06345513] 6000
+iter time 0.16465
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_008000.npy
+saved weights at ./logs/0310_101_noise/optimizer_008000.npy
+0310_101_noise 8000 [0.06033761] 8000
+iter time 0.15984
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_010000.npy
+saved weights at ./logs/0310_101_noise/optimizer_010000.npy
+0310_101_noise 10000 [0.06103173] 10000
+iter time 0.15765
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_012000.npy
+saved weights at ./logs/0310_101_noise/optimizer_012000.npy
+0310_101_noise 12000 [0.05277938] 12000
+iter time 0.16178
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_014000.npy
+saved weights at ./logs/0310_101_noise/optimizer_014000.npy
+0310_101_noise 14000 [0.07068382] 14000
+iter time 0.15298
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_016000.npy
+saved weights at ./logs/0310_101_noise/optimizer_016000.npy
+0310_101_noise 16000 [0.06054736] 16000
+iter time 0.16649
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_018000.npy
+saved weights at ./logs/0310_101_noise/optimizer_018000.npy
+0310_101_noise 18000 [0.06297677] 18000
+iter time 0.16615
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_020000.npy
+saved weights at ./logs/0310_101_noise/optimizer_020000.npy
+0310_101_noise 20000 [0.06760623] 20000
+iter time 0.16018
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_022000.npy
+saved weights at ./logs/0310_101_noise/optimizer_022000.npy
+0310_101_noise 22000 [0.06836815] 22000
+iter time 0.18352
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_024000.npy
+saved weights at ./logs/0310_101_noise/optimizer_024000.npy
+0310_101_noise 24000 [0.05954526] 24000
+iter time 0.14561
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_026000.npy
+saved weights at ./logs/0310_101_noise/optimizer_026000.npy
+0310_101_noise 26000 [0.07399882] 26000
+iter time 0.16016
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_028000.npy
+saved weights at ./logs/0310_101_noise/optimizer_028000.npy
+0310_101_noise 28000 [0.05337673] 28000
+iter time 0.15579
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_030000.npy
+saved weights at ./logs/0310_101_noise/optimizer_030000.npy
+0310_101_noise 30000 [0.06047969] 30000
+iter time 0.17230
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_032000.npy
+saved weights at ./logs/0310_101_noise/optimizer_032000.npy
+0310_101_noise 32000 [0.07144994] 32000
+iter time 0.16916
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_034000.npy
+saved weights at ./logs/0310_101_noise/optimizer_034000.npy
+0310_101_noise 34000 [0.06657401] 34000
+iter time 0.16276
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_036000.npy
+saved weights at ./logs/0310_101_noise/optimizer_036000.npy
+0310_101_noise 36000 [0.06782482] 36000
+iter time 0.15170
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_038000.npy
+saved weights at ./logs/0310_101_noise/optimizer_038000.npy
+0310_101_noise 38000 [0.05877773] 38000
+iter time 0.15719
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_040000.npy
+saved weights at ./logs/0310_101_noise/optimizer_040000.npy
+0310_101_noise 40000 [0.06357372] 40000
+iter time 0.16831
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_042000.npy
+saved weights at ./logs/0310_101_noise/optimizer_042000.npy
+0310_101_noise 42000 [0.07928623] 42000
+iter time 0.17439
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_044000.npy
+saved weights at ./logs/0310_101_noise/optimizer_044000.npy
+0310_101_noise 44000 [0.06091565] 44000
+iter time 0.16036
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_046000.npy
+saved weights at ./logs/0310_101_noise/optimizer_046000.npy
+0310_101_noise 46000 [0.06993652] 46000
+iter time 0.15322
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_048000.npy
+saved weights at ./logs/0310_101_noise/optimizer_048000.npy
+0310_101_noise 48000 [0.0452855] 48000
+iter time 0.16300
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_050000.npy
+saved weights at ./logs/0310_101_noise/optimizer_050000.npy
+0310_101_noise 50000 [0.07509111] 50000
+iter time 0.17000
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_052000.npy
+saved weights at ./logs/0310_101_noise/optimizer_052000.npy
+0310_101_noise 52000 [0.0808284] 52000
+iter time 0.16705
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_054000.npy
+saved weights at ./logs/0310_101_noise/optimizer_054000.npy
+0310_101_noise 54000 [0.06145843] 54000
+iter time 0.14860
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_056000.npy
+saved weights at ./logs/0310_101_noise/optimizer_056000.npy
+0310_101_noise 56000 [0.08212732] 56000
+iter time 0.16323
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_058000.npy
+saved weights at ./logs/0310_101_noise/optimizer_058000.npy
+0310_101_noise 58000 [0.04747918] 58000
+iter time 0.17321
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_060000.npy
+saved weights at ./logs/0310_101_noise/optimizer_060000.npy
+0310_101_noise 60000 [0.07221615] 60000
+iter time 0.15968
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_062000.npy
+saved weights at ./logs/0310_101_noise/optimizer_062000.npy
+0310_101_noise 62000 [0.0650868] 62000
+iter time 0.16756
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_064000.npy
+saved weights at ./logs/0310_101_noise/optimizer_064000.npy
+0310_101_noise 64000 [0.06287561] 64000
+iter time 0.16078
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_066000.npy
+saved weights at ./logs/0310_101_noise/optimizer_066000.npy
+0310_101_noise 66000 [0.06495256] 66000
+iter time 0.16295
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_068000.npy
+saved weights at ./logs/0310_101_noise/optimizer_068000.npy
+0310_101_noise 68000 [0.06453145] 68000
+iter time 0.15328
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_070000.npy
+saved weights at ./logs/0310_101_noise/optimizer_070000.npy
+0310_101_noise 70000 [0.05607345] 70000
+iter time 0.14719
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_072000.npy
+saved weights at ./logs/0310_101_noise/optimizer_072000.npy
+0310_101_noise 72000 [0.07112787] 72000
+iter time 0.14713
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_074000.npy
+saved weights at ./logs/0310_101_noise/optimizer_074000.npy
+0310_101_noise 74000 [0.08729192] 74000
+iter time 0.16322
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_076000.npy
+saved weights at ./logs/0310_101_noise/optimizer_076000.npy
+0310_101_noise 76000 [0.06785443] 76000
+iter time 0.16713
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_078000.npy
+saved weights at ./logs/0310_101_noise/optimizer_078000.npy
+0310_101_noise 78000 [0.07247351] 78000
+iter time 0.15600
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_080000.npy
+saved weights at ./logs/0310_101_noise/optimizer_080000.npy
+0310_101_noise 80000 [0.05567231] 80000
+iter time 0.16061
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_082000.npy
+saved weights at ./logs/0310_101_noise/optimizer_082000.npy
+0310_101_noise 82000 [0.07770694] 82000
+iter time 0.16887
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_084000.npy
+saved weights at ./logs/0310_101_noise/optimizer_084000.npy
+0310_101_noise 84000 [0.06900416] 84000
+iter time 0.16256
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_086000.npy
+saved weights at ./logs/0310_101_noise/optimizer_086000.npy
+0310_101_noise 86000 [0.05604989] 86000
+iter time 0.15894
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_088000.npy
+saved weights at ./logs/0310_101_noise/optimizer_088000.npy
+0310_101_noise 88000 [0.06994554] 88000
+iter time 0.15592
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_090000.npy
+saved weights at ./logs/0310_101_noise/optimizer_090000.npy
+0310_101_noise 90000 [0.052416] 90000
+iter time 0.15847
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_092000.npy
+saved weights at ./logs/0310_101_noise/optimizer_092000.npy
+0310_101_noise 92000 [0.06936511] 92000
+iter time 0.13785
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_094000.npy
+saved weights at ./logs/0310_101_noise/optimizer_094000.npy
+0310_101_noise 94000 [0.07032757] 94000
+iter time 0.16786
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_096000.npy
+saved weights at ./logs/0310_101_noise/optimizer_096000.npy
+0310_101_noise 96000 [0.08400642] 96000
+iter time 0.14666
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_098000.npy
+saved weights at ./logs/0310_101_noise/optimizer_098000.npy
+0310_101_noise 98000 [0.05491663] 98000
+iter time 0.16298
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_100000.npy
+saved weights at ./logs/0310_101_noise/optimizer_100000.npy
+0310_101_noise 100000 [0.0655809] 100000
+iter time 0.14648
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_102000.npy
+saved weights at ./logs/0310_101_noise/optimizer_102000.npy
+0310_101_noise 102000 [0.07435922] 102000
+iter time 0.16623
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_104000.npy
+saved weights at ./logs/0310_101_noise/optimizer_104000.npy
+0310_101_noise 104000 [0.06556903] 104000
+iter time 0.16364
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_106000.npy
+saved weights at ./logs/0310_101_noise/optimizer_106000.npy
+0310_101_noise 106000 [0.07021014] 106000
+iter time 0.17238
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_108000.npy
+saved weights at ./logs/0310_101_noise/optimizer_108000.npy
+0310_101_noise 108000 [0.07068036] 108000
+iter time 0.16538
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_110000.npy
+saved weights at ./logs/0310_101_noise/optimizer_110000.npy
+0310_101_noise 110000 [0.06612699] 110000
+iter time 0.15091
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_112000.npy
+saved weights at ./logs/0310_101_noise/optimizer_112000.npy
+0310_101_noise 112000 [0.04470211] 112000
+iter time 0.15334
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_114000.npy
+saved weights at ./logs/0310_101_noise/optimizer_114000.npy
+0310_101_noise 114000 [0.06423564] 114000
+iter time 0.15579
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_116000.npy
+saved weights at ./logs/0310_101_noise/optimizer_116000.npy
+0310_101_noise 116000 [0.07129421] 116000
+iter time 0.15405
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_118000.npy
+saved weights at ./logs/0310_101_noise/optimizer_118000.npy
+0310_101_noise 118000 [0.06320449] 118000
+iter time 0.13844
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_120000.npy
+saved weights at ./logs/0310_101_noise/optimizer_120000.npy
+0310_101_noise 120000 [0.08140013] 120000
+iter time 0.15176
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_122000.npy
+saved weights at ./logs/0310_101_noise/optimizer_122000.npy
+0310_101_noise 122000 [0.07139453] 122000
+iter time 0.14316
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_124000.npy
+saved weights at ./logs/0310_101_noise/optimizer_124000.npy
+0310_101_noise 124000 [0.06418186] 124000
+iter time 0.16254
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_126000.npy
+saved weights at ./logs/0310_101_noise/optimizer_126000.npy
+0310_101_noise 126000 [0.06977116] 126000
+iter time 0.15754
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_128000.npy
+saved weights at ./logs/0310_101_noise/optimizer_128000.npy
+0310_101_noise 128000 [0.05193955] 128000
+iter time 0.15622
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_130000.npy
+saved weights at ./logs/0310_101_noise/optimizer_130000.npy
+0310_101_noise 130000 [0.06792393] 130000
+iter time 0.16012
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_132000.npy
+saved weights at ./logs/0310_101_noise/optimizer_132000.npy
+0310_101_noise 132000 [0.07927524] 132000
+iter time 0.15125
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_134000.npy
+saved weights at ./logs/0310_101_noise/optimizer_134000.npy
+0310_101_noise 134000 [0.0670239] 134000
+iter time 0.15305
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_136000.npy
+saved weights at ./logs/0310_101_noise/optimizer_136000.npy
+0310_101_noise 136000 [0.07292999] 136000
+iter time 0.13673
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_138000.npy
+saved weights at ./logs/0310_101_noise/optimizer_138000.npy
+0310_101_noise 138000 [0.08063959] 138000
+iter time 0.16339
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_140000.npy
+saved weights at ./logs/0310_101_noise/optimizer_140000.npy
+0310_101_noise 140000 [0.070998] 140000
+iter time 0.15297
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_142000.npy
+saved weights at ./logs/0310_101_noise/optimizer_142000.npy
+0310_101_noise 142000 [0.05917654] 142000
+iter time 0.15677
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_144000.npy
+saved weights at ./logs/0310_101_noise/optimizer_144000.npy
+0310_101_noise 144000 [0.06483845] 144000
+iter time 0.15284
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_146000.npy
+saved weights at ./logs/0310_101_noise/optimizer_146000.npy
+0310_101_noise 146000 [0.0594229] 146000
+iter time 0.14019
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_148000.npy
+saved weights at ./logs/0310_101_noise/optimizer_148000.npy
+0310_101_noise 148000 [0.06243725] 148000
+iter time 0.16095
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_150000.npy
+saved weights at ./logs/0310_101_noise/optimizer_150000.npy
+0310_101_noise 150000 [0.04355245] 150000
+iter time 0.15660
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_152000.npy
+saved weights at ./logs/0310_101_noise/optimizer_152000.npy
+0310_101_noise 152000 [0.06037553] 152000
+iter time 0.15549
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_154000.npy
+saved weights at ./logs/0310_101_noise/optimizer_154000.npy
+0310_101_noise 154000 [0.07109159] 154000
+iter time 0.14946
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_156000.npy
+saved weights at ./logs/0310_101_noise/optimizer_156000.npy
+0310_101_noise 156000 [0.06240741] 156000
+iter time 0.15471
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_158000.npy
+saved weights at ./logs/0310_101_noise/optimizer_158000.npy
+0310_101_noise 158000 [0.06365333] 158000
+iter time 0.14101
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_160000.npy
+saved weights at ./logs/0310_101_noise/optimizer_160000.npy
+0310_101_noise 160000 [0.05300441] 160000
+iter time 0.14059
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_162000.npy
+saved weights at ./logs/0310_101_noise/optimizer_162000.npy
+0310_101_noise 162000 [0.05555654] 162000
+iter time 0.15598
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_164000.npy
+saved weights at ./logs/0310_101_noise/optimizer_164000.npy
+0310_101_noise 164000 [0.06505886] 164000
+iter time 0.16198
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_166000.npy
+saved weights at ./logs/0310_101_noise/optimizer_166000.npy
+0310_101_noise 166000 [0.05172741] 166000
+iter time 0.17361
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_168000.npy
+saved weights at ./logs/0310_101_noise/optimizer_168000.npy
+0310_101_noise 168000 [0.06636162] 168000
+iter time 0.15800
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_170000.npy
+saved weights at ./logs/0310_101_noise/optimizer_170000.npy
+0310_101_noise 170000 [0.05600502] 170000
+iter time 0.13527
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_172000.npy
+saved weights at ./logs/0310_101_noise/optimizer_172000.npy
+0310_101_noise 172000 [0.07099618] 172000
+iter time 0.16410
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_174000.npy
+saved weights at ./logs/0310_101_noise/optimizer_174000.npy
+0310_101_noise 174000 [0.0654413] 174000
+iter time 0.14582
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_176000.npy
+saved weights at ./logs/0310_101_noise/optimizer_176000.npy
+0310_101_noise 176000 [0.06341837] 176000
+iter time 0.15132
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_178000.npy
+saved weights at ./logs/0310_101_noise/optimizer_178000.npy
+0310_101_noise 178000 [0.04593554] 178000
+iter time 0.16485
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_180000.npy
+saved weights at ./logs/0310_101_noise/optimizer_180000.npy
+0310_101_noise 180000 [0.07678683] 180000
+iter time 0.17306
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_182000.npy
+saved weights at ./logs/0310_101_noise/optimizer_182000.npy
+0310_101_noise 182000 [0.04722382] 182000
+iter time 0.15278
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_184000.npy
+saved weights at ./logs/0310_101_noise/optimizer_184000.npy
+0310_101_noise 184000 [0.06381563] 184000
+iter time 0.16801
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_186000.npy
+saved weights at ./logs/0310_101_noise/optimizer_186000.npy
+0310_101_noise 186000 [0.05303468] 186000
+iter time 0.15724
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_188000.npy
+saved weights at ./logs/0310_101_noise/optimizer_188000.npy
+0310_101_noise 188000 [0.06421017] 188000
+iter time 0.16734
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_190000.npy
+saved weights at ./logs/0310_101_noise/optimizer_190000.npy
+0310_101_noise 190000 [0.06332802] 190000
+iter time 0.17750
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_192000.npy
+saved weights at ./logs/0310_101_noise/optimizer_192000.npy
+0310_101_noise 192000 [0.07188296] 192000
+iter time 0.15299
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_194000.npy
+saved weights at ./logs/0310_101_noise/optimizer_194000.npy
+0310_101_noise 194000 [0.07179382] 194000
+iter time 0.15277
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_196000.npy
+saved weights at ./logs/0310_101_noise/optimizer_196000.npy
+0310_101_noise 196000 [0.07315755] 196000
+iter time 0.16481
+Total loss =  + 0.75 * ssim + 0.25 * l2
+saved weights at ./logs/0310_101_noise/model_198000.npy
+saved weights at ./logs/0310_101_noise/optimizer_198000.npy
+0310_101_noise 198000 [0.04853229] 198000
+iter time 0.15820
+Total loss =  + 0.75 * ssim + 0.25 * l2

@@ -464,6 +464,9 @@ def config_parser():
                         help='frequency of render_poses video saving')
 
     parser.add_argument("--log_compression", action='store_true')
+    
+    # TODO: add new args
+    parser.add_argument("--pose_data", type=str, default='poses.npy')
     return parser
 
 
@@ -478,7 +481,7 @@ def train():
 
     # Load data
     if args.dataset_type == 'us':
-        images, poses, i_test = load_us_data(args.datadir)
+        images, poses, i_test = load_us_data(args.datadir, args.pose_data)
 
         if not isinstance(i_test, list):
             i_test = [i_test]
@@ -621,10 +624,11 @@ def train():
             print(expname, i, total_loss.numpy(), global_step.numpy())
             print('iter time {:.05f}'.format(dt))
             with tf2.summary.record_if(i % args.i_print == 0):
+                tf2.summary.experimental.set_step(args.i_print)
                 g_i = 0
                 for t in gradients:
                     g_i += 1
-                    tf2.summary.histogram(str(g_i), t, step=args.i_print)
+                    tf2.summary.histogram(str(g_i), t)
                 tf2.summary.scalar('misc/learning_rate', K.eval(optimizer.learning_rate(optimizer.iterations)))
                 loss_string = "Total loss = "
                 for l_key, l_value in loss.items():
@@ -675,15 +679,20 @@ def train():
                 imageio.imwrite(os.path.join(testimgdir,
                                              '{:06d}.png'.format(i)), to8b(tf.transpose(output_image_test)))
 
-                with tf2.summary.record_summaries_every_n_global_steps(args.i_img):
-
+                with tf2.summary.record_if(i % args.i_print == 0):
+                    # TODO: deal with scalar
+                    value = l_value[1]
+                    if tf.rank(l_value[1]) != 0:
+                        value = l_value[1][0]
+                    if tf.rank(total_loss) != 0:
+                        total_loss = total_loss [0]
                     tf2.summary.image('b_mode/output/',
                                              tf.expand_dims(tf.expand_dims(to8b(tf.transpose(output_image_test)), 0),
                                                             -1))
                     for l_key, l_value in loss_holdout.items():
                         tf2.summary.scalar(f'test/loss_{l_key}/', l_value[0])
-                        tf2.summary.scalar(f'test/penalty_factor_{l_key}/', l_value[1])
-                        tf2.summary.scalar(f'test/total_loss_{l_key}/', l_value[0] * l_value[1])
+                        tf2.summary.scalar(f'test/penalty_factor_{l_key}/', value)
+                        tf2.summary.scalar(f'test/total_loss_{l_key}/', l_value[0] * value)
                     tf2.summary.scalar('test/total_loss/', total_loss)
                     tf2.summary.image('b_mode/target/',
                                              tf.expand_dims(tf.expand_dims(to8b(tf.transpose(target)), 0), -1))
